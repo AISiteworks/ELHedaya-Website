@@ -12,10 +12,12 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import NewsletterSignup from "./components/NewsletterSignup";
 import NewsletterUnsubscribePage from "./components/NewsletterUnsubscribePage";
+import RegistrationPage from "./components/RegistrationPage";
 
 const ADMIN_PATH = "/school-gallery-admin";
 const GALLERY_PATH = "/gallery";
 const NEWSLETTER_UNSUBSCRIBE_PATH = "/newsletter/unsubscribe";
+const REGISTRATION_PATH = "/register";
 
 function normalizedPath() {
   return window.location.pathname.replace(/\/$/, "") || "/";
@@ -30,6 +32,10 @@ export default function App() {
 
   if (path === NEWSLETTER_UNSUBSCRIBE_PATH) {
     return <NewsletterUnsubscribePage />;
+  }
+
+  if (path === REGISTRATION_PATH) {
+    return <RegistrationPage />;
   }
 
   if (path === GALLERY_PATH) {

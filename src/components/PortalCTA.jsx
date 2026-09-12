@@ -9,15 +9,15 @@ export default function PortalCTA() {
           <div className="portal-pattern" aria-hidden="true" />
           <div className="portal-copy">
             <span className="portal-kicker"><LockKeyhole size={15} /> Secure School Hub</span>
-            <h2>Registration and family accounts live in one place.</h2>
+            <h2>Registration is now built right into EL Hedaya.</h2>
             <p>
-              New families can begin registration, while returning parents can sign in to the
+              New families can register children and pay securely on this website. Returning parents can still sign in to the
               EL Hedaya Sunday School Hub using the official CiC school domain.
             </p>
 
             <div className="portal-actions">
-              <a className="button button-gold" href={PORTAL_URL}>
-                <UserRoundPlus size={18} /> Register Online
+              <a className="button button-gold" href="/register">
+                <UserRoundPlus size={18} /> Register a Student
               </a>
               <a className="button button-dark-quiet" href={PORTAL_URL}>
                 <UsersRound size={18} /> Parent Login <ArrowRight size={17} />

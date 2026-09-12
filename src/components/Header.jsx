@@ -10,6 +10,7 @@ const nav = [
   { href: "/#schedule", label: "Schedule & Fees" },
   { href: "/#policies", label: "Policies" },
   { href: "/#contact", label: "Contact" },
+  { href: "/register", label: "Register" },
 ];
 
 export default function Header() {

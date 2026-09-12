@@ -25,7 +25,7 @@ export default function Hero() {
           <p className="hero-intro">{school.mission}</p>
 
           <div className="hero-actions">
-            <a className="button button-gold" href={PORTAL_URL}>
+            <a className="button button-gold" href="/register">
               Register Online <ArrowRight size={18} />
             </a>
             <button

@@ -1,6 +1,22 @@
-import { Clock3, BookOpen, WalletCards, MapPinned } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { Clock3, BookOpen, WalletCards, MapPinned, ArrowRight } from "lucide-react";
+import { formatRegistrationMoney, getPublicRegistrationConfig } from "../services/registrationService";
 
 export default function ScheduleFees() {
+  const [registrationConfig, setRegistrationConfig] = useState(null);
+
+  useEffect(() => {
+    getPublicRegistrationConfig().then(setRegistrationConfig).catch(() => {});
+  }, []);
+
+  const feeSummary = useMemo(() => {
+    const fees = registrationConfig?.fees || [];
+    const required = fees.filter((fee) => !fee.isOptional && fee.kind === "charge" && fee.scope === "student" && !fee.appliesAfterStudents);
+    if (!required.length) return null;
+    const total = required.reduce((sum, fee) => sum + Number(fee.amountCents || 0), 0);
+    return { total, count: required.length };
+  }, [registrationConfig]);
+
   return (
     <section className="section schedule-section" id="schedule">
       <div className="container">
@@ -26,16 +42,16 @@ export default function ScheduleFees() {
 
           <div className="schedule-column featured">
             <div className="schedule-icon"><WalletCards size={23} /></div>
-            <span className="card-label">Semester Cost</span>
+            <span className="card-label">Registration & Fees</span>
             <div className="price">
-              <strong>$150</strong>
-              <span>per student</span>
+              <strong>{feeSummary ? formatRegistrationMoney(feeSummary.total) : "Online"}</strong>
+              <span>{feeSummary ? "required per student" : "current fees shown at registration"}</span>
             </div>
             <div className="fee-breakdown">
-              <span><b>$150</b> semester fee</span>
-              <span>per student</span>
+              <span><b>{registrationConfig?.settings?.registrationOpen ? "Open" : "Current"}</b> registration</span>
+              <span>{registrationConfig?.settings?.termName || "EL Hedaya"}</span>
             </div>
-            <small>Fees are due at the beginning of the term.</small>
+            <a className="schedule-register-link" href="/register">View current fees & register <ArrowRight size={15} /></a>
           </div>
 
           <div className="schedule-column">

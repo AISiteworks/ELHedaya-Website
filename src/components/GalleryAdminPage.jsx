@@ -18,9 +18,11 @@ import {
   Upload,
   X,
   Mail,
+  ClipboardList,
 } from "lucide-react";
 import Logo from "./Logo";
 import NewsletterAdmin from "./NewsletterAdmin";
+import RegistrationAdmin from "./RegistrationAdmin";
 import {
   addGalleryUrl,
   deleteGalleryImage,
@@ -167,8 +169,11 @@ function AdminWorkspace(props) {
       <div className="admin-section-tabs" role="tablist" aria-label="School administration sections">
         <button type="button" className={section === "gallery" ? "active" : ""} onClick={() => setSection("gallery")}><Images size={17} /> Picture Gallery</button>
         <button type="button" className={section === "newsletter" ? "active" : ""} onClick={() => setSection("newsletter")}><Mail size={17} /> Newsletter</button>
+        <button type="button" className={section === "registration" ? "active" : ""} onClick={() => setSection("registration")}><ClipboardList size={17} /> Registration</button>
       </div>
-      {section === "gallery" ? <GalleryWorkspace {...props} /> : <NewsletterAdmin session={props.session} localPreview={props.localPreview} onLogout={props.onLogout} />}
+      {section === "gallery" && <GalleryWorkspace {...props} />}
+      {section === "newsletter" && <NewsletterAdmin session={props.session} localPreview={props.localPreview} onLogout={props.onLogout} />}
+      {section === "registration" && <RegistrationAdmin session={props.session} localPreview={props.localPreview} />}
     </>
   );
 }

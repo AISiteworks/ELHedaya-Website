@@ -74,7 +74,7 @@ export async function signInGalleryAdmin(email, password) {
   if (error) throw error;
   if (!isGalleryAdmin(data.user)) {
     await supabase.auth.signOut();
-    throw new Error("This account does not have gallery administrator access.");
+    throw new Error("This account does not have school administrator access.");
   }
   return { user: data.user, isAdmin: true, mode: "supabase" };
 }
