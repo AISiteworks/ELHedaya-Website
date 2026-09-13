@@ -99,3 +99,8 @@ Do not commit `.env`, Vercel secrets, Supabase service-role credentials, SMTP pa
 ## Existing `students` table compatibility
 
 The registration module uses `public.registration_students`, not `public.students`, so it can safely coexist with an existing school/student table.
+
+
+## Square tokenization diagnostics
+
+V13.2 sends full billing contact data to `card.tokenize()`, includes Square verification/3DS endpoints in the `/register` CSP, and exposes non-sensitive Square tokenization error details in the browser UI/console.

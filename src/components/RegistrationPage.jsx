@@ -313,22 +313,42 @@ function PaymentStep({ config, guardian, registration, onPaid }) {
     setError("");
     try {
       const amount = (Number(registration.totalCents || 0) / 100).toFixed(2);
-      const tokenResult = await card.tokenize({
-        amount,
-        billingContact: {
-          givenName: guardian.firstName,
-          familyName: guardian.lastName,
-          email: guardian.email,
-          phone: guardian.phone,
-          countryCode: "US",
-        },
-        currencyCode: registration.currency || "USD",
-        intent: "CHARGE",
-        customerInitiated: true,
-        sellerKeyedIn: false,
-      });
+      const billingContact = {
+        givenName: guardian.firstName?.trim() || undefined,
+        familyName: guardian.lastName?.trim() || undefined,
+        email: guardian.email?.trim() || undefined,
+        phone: guardian.phone?.trim() || undefined,
+        addressLines: [guardian.addressLine1?.trim(), guardian.addressLine2?.trim()].filter(Boolean),
+        city: guardian.city?.trim() || undefined,
+        state: guardian.state?.trim() || undefined,
+        postalCode: guardian.postalCode?.trim() || undefined,
+        countryCode: "US",
+      };
+
+      let tokenResult;
+      try {
+        tokenResult = await card.tokenize({
+          amount,
+          billingContact,
+          currencyCode: registration.currency || "USD",
+          intent: "CHARGE",
+          customerInitiated: true,
+          sellerKeyedIn: false,
+        });
+      } catch (squareError) {
+        const details = extractSquareError(squareError);
+        console.error("Square tokenization exception:", {
+          name: squareError?.name,
+          message: squareError?.message,
+          errorList: squareError?.errorList,
+          errors: squareError?.errors,
+        });
+        throw new Error(details);
+      }
+
       if (tokenResult.status !== "OK" || !tokenResult.token) {
-        throw new Error(tokenResult.errors?.[0]?.message || "Please check the card details and try again.");
+        console.error("Square tokenization result:", tokenResult);
+        throw new Error(extractSquareTokenResultError(tokenResult));
       }
       const result = await payRegistration({
         registrationId: registration.registrationId,
@@ -354,6 +374,33 @@ function PaymentStep({ config, guardian, registration, onPaid }) {
       <p className="square-privacy-note"><ShieldCheck size={15} /> Payment information is tokenized by Square. EL Hedaya does not receive or store your full card number.</p>
     </>}
   </div>;
+}
+
+function extractSquareError(error) {
+  const list = Array.isArray(error?.errorList)
+    ? error.errorList
+    : Array.isArray(error?.errors)
+      ? error.errors
+      : [];
+
+  const messages = list
+    .map((item) => item?.message || item?.detail || item?.code)
+    .filter(Boolean);
+
+  if (messages.length) return `Square: ${messages.join(" · ")}`;
+  if (error?.message && !/unexpected error occurred while using card/i.test(error.message)) {
+    return error.message;
+  }
+
+  return "Square could not tokenize the card. Please try once in Chrome or Edge with any VPN, ad blocker, or strict tracking protection temporarily disabled. If it still fails, open Developer Tools → Console and Network and look for a blocked Square request.";
+}
+
+function extractSquareTokenResultError(result) {
+  const messages = (result?.errors || [])
+    .map((item) => item?.message || item?.detail || item?.code)
+    .filter(Boolean);
+  if (messages.length) return `Square: ${messages.join(" · ")}`;
+  return `Square tokenization failed${result?.status ? ` (${result.status})` : ""}. Please check the card details and try again.`;
 }
 
 function CompleteStep({ config, registration, paymentResult }) {
