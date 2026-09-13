@@ -21,7 +21,7 @@ export default function Footer() {
         </div>
         <div className="footer-links">
           <span>Families</span>
-          <a href={PORTAL_URL}>Register Online</a>
+          <a href="/register">Register Online</a>
           <a href={PORTAL_URL}>Parent Portal</a>
           <a href="/#newsletter">Newsletter</a>
           <a href="/#contact">Contact</a>
