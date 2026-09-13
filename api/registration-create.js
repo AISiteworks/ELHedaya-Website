@@ -77,7 +77,7 @@ export default async function handler(req, res) {
       sort_order: index,
       ...student,
     }));
-    const { error: studentError } = await admin.from("students").insert(studentRows);
+    const { error: studentError } = await admin.from("registration_students").insert(studentRows);
     if (studentError) throw studentError;
 
     if (calculated.lines.length) {

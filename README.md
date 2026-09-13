@@ -94,3 +94,8 @@ Card numbers are not stored by this application. Square's browser SDK tokenizes 
 All registration totals are recalculated server-side from Supabase fee configuration.
 
 Do not commit `.env`, Vercel secrets, Supabase service-role credentials, SMTP passwords or Square access tokens.
+
+
+## Existing `students` table compatibility
+
+The registration module uses `public.registration_students`, not `public.students`, so it can safely coexist with an existing school/student table.

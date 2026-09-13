@@ -83,7 +83,7 @@ create table if not exists public.registrations (
   updated_at timestamptz not null default now()
 );
 
-create table if not exists public.students (
+create table if not exists public.registration_students (
   id uuid primary key default gen_random_uuid(),
   registration_id uuid not null references public.registrations(id) on delete cascade,
   first_name text not null,
@@ -131,7 +131,7 @@ create table if not exists public.registration_payments (
 create index if not exists registrations_created_at_idx on public.registrations(created_at desc);
 create index if not exists registrations_payment_status_idx on public.registrations(payment_status);
 create index if not exists registrations_guardian_email_idx on public.registrations(lower(guardian_email));
-create index if not exists students_registration_id_idx on public.students(registration_id);
+create index if not exists registration_students_registration_id_idx on public.registration_students(registration_id);
 create index if not exists registration_fee_lines_registration_id_idx on public.registration_fee_lines(registration_id);
 create index if not exists registration_payments_registration_id_idx on public.registration_payments(registration_id);
 
@@ -160,7 +160,7 @@ for each row execute function public.registration_touch_updated_at();
 alter table public.registration_settings enable row level security;
 alter table public.registration_fees enable row level security;
 alter table public.registrations enable row level security;
-alter table public.students enable row level security;
+alter table public.registration_students enable row level security;
 alter table public.registration_fee_lines enable row level security;
 alter table public.registration_payments enable row level security;
 
@@ -169,7 +169,7 @@ do $$
 declare
   t text;
 begin
-  foreach t in array array['registration_settings','registration_fees','registrations','students','registration_fee_lines','registration_payments']
+  foreach t in array array['registration_settings','registration_fees','registrations','registration_students','registration_fee_lines','registration_payments']
   loop
     execute format('drop policy if exists "EL Hedaya admin all" on public.%I', t);
     execute format(
@@ -183,13 +183,13 @@ end $$;
 revoke all on public.registration_settings from anon;
 revoke all on public.registration_fees from anon;
 revoke all on public.registrations from anon;
-revoke all on public.students from anon;
+revoke all on public.registration_students from anon;
 revoke all on public.registration_fee_lines from anon;
 revoke all on public.registration_payments from anon;
 
 grant select, insert, update, delete on public.registration_settings to authenticated;
 grant select, insert, update, delete on public.registration_fees to authenticated;
 grant select, insert, update, delete on public.registrations to authenticated;
-grant select, insert, update, delete on public.students to authenticated;
+grant select, insert, update, delete on public.registration_students to authenticated;
 grant select, insert, update, delete on public.registration_fee_lines to authenticated;
 grant select, insert, update, delete on public.registration_payments to authenticated;

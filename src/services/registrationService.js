@@ -43,7 +43,7 @@ export async function listRegistrationAdminRecords() {
       address_line_1,address_line_2,city,state,postal_code,emergency_contact_name,emergency_contact_phone,
       school_year,term_name,notes,currency,subtotal_cents,total_cents,payment_status,square_payment_id,
       square_receipt_url,payment_error,paid_at,created_at,updated_at,
-      students(id,first_name,last_name,date_of_birth,gender,grade,returning_student,medical_notes,sort_order),
+      students:registration_students(id,first_name,last_name,date_of_birth,gender,grade,returning_student,medical_notes,sort_order),
       registration_fee_lines(id,fee_name,description,kind,scope,unit_amount_cents,quantity,total_cents,is_optional),
       registration_payments(id,provider,provider_payment_id,amount_cents,currency,status,receipt_url,card_brand,last_4,failure_message,created_at)
     `)
