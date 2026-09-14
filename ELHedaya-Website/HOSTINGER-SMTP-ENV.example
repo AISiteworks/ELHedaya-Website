@@ -1,0 +1,14 @@
+# SERVER-SIDE ONLY — add these in Vercel Environment Variables.
+# Do not rename SMTP_PASSWORD or SUPABASE_SERVICE_ROLE_KEY with VITE_ prefixes.
+SMTP_HOST=smtp.hostinger.com
+SMTP_PORT=465
+SMTP_USER=newsletter@elhedaya-cic.com
+SMTP_PASSWORD=replace-with-hostinger-mailbox-password
+NEWSLETTER_FROM=EL Hedaya Islamic School <newsletter@elhedaya-cic.com>
+NEWSLETTER_REPLY_TO=newsletter@elhedaya-cic.com
+PUBLIC_SITE_URL=https://elhedaya-cic.com
+SUPABASE_SERVICE_ROLE_KEY=replace-with-supabase-service-role-key
+
+# Existing Vercel browser variables are reused by the API:
+# VITE_SUPABASE_URL=https://xxxxx.supabase.co
+# VITE_SUPABASE_ANON_KEY=xxxxx

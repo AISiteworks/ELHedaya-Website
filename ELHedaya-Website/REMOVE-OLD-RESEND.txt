@@ -1,0 +1,9 @@
+V9 no longer uses Resend or the Supabase send-newsletter Edge Function.
+
+If you previously copied V8 into your project and still have:
+  supabase/functions/send-newsletter/
+
+it is safe to delete that folder from the website repository. The V9 frontend sends through:
+  /api/send-newsletter
+
+No RESEND_API_KEY is needed.
