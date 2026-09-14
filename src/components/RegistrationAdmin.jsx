@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import {
   deleteRegistrationFee,
+  deleteRegistrationRecord,
   formatRegistrationMoney,
   getRegistrationSettingsAdmin,
   listRegistrationAdminRecords,
@@ -127,6 +128,7 @@ function Registrations({ records, onChanged }) {
   const [filter, setFilter] = useState("all");
   const [selected, setSelected] = useState(null);
   const [updating, setUpdating] = useState(false);
+  const [deletingId, setDeletingId] = useState(null);
   const visible = records.filter((record) => {
     const q = search.trim().toLowerCase();
     const matchesSearch = !q || `${record.registration_number} ${record.guardian_first_name} ${record.guardian_last_name} ${record.guardian_email} ${(record.students || []).map((student) => `${student.first_name} ${student.last_name}`).join(" ")}`.toLowerCase().includes(q);
@@ -142,9 +144,30 @@ function Registrations({ records, onChanged }) {
     finally { setUpdating(false); }
   };
 
+  const deleteRecord = async (record) => {
+    const paidWarning = ["paid", "offline", "refunded"].includes(record.payment_status)
+      ? "\n\nIMPORTANT: This registration has payment history. Deleting it here does NOT refund or reverse any Square payment."
+      : "";
+    const confirmed = window.confirm(
+      `Permanently delete ${record.registration_number}?\n\nThis will remove the registration, linked student records, fee lines, and local payment history from EL Hedaya's database. This cannot be undone.${paidWarning}`
+    );
+    if (!confirmed) return;
+
+    setDeletingId(record.id);
+    try {
+      await deleteRegistrationRecord(record.id);
+      if (selected?.id === record.id) setSelected(null);
+      await onChanged();
+    } catch (err) {
+      window.alert(err.message || "Registration could not be deleted.");
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
   return <div className="registration-admin-section">
     <div className="registration-list-tools"><label><Search size={15} /><input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search guardian, student, email, ID…" /></label><select value={filter} onChange={(e) => setFilter(e.target.value)}><option value="all">All payment statuses</option>{["paid","offline","pending","failed","waived","refunded"].map((status) => <option key={status} value={status}>{prettyStatus(status)}</option>)}</select></div>
-    <div className="registration-table-wrap"><table className="registration-table"><thead><tr><th>Registration</th><th>Family</th><th>Students</th><th>Total</th><th>Payment</th><th>Date</th><th /></tr></thead><tbody>{visible.map((record) => <tr key={record.id}><td><strong>{record.registration_number}</strong></td><td><strong>{record.guardian_first_name} {record.guardian_last_name}</strong><small>{record.guardian_email}</small></td><td>{record.students?.length || 0}</td><td>{formatRegistrationMoney(record.total_cents, record.currency)}</td><td><StatusBadge status={record.payment_status} /></td><td>{new Date(record.created_at).toLocaleDateString()}</td><td><button className="registration-row-view" type="button" onClick={() => setSelected(record)}><Eye size={16} /></button></td></tr>)}</tbody></table>{!visible.length && <div className="registration-admin-empty">No registrations match your search.</div>}</div>
+    <div className="registration-table-wrap"><table className="registration-table"><thead><tr><th>Registration</th><th>Family</th><th>Students</th><th>Total</th><th>Payment</th><th>Date</th><th /></tr></thead><tbody>{visible.map((record) => <tr key={record.id}><td><strong>{record.registration_number}</strong></td><td><strong>{record.guardian_first_name} {record.guardian_last_name}</strong><small>{record.guardian_email}</small></td><td>{record.students?.length || 0}</td><td>{formatRegistrationMoney(record.total_cents, record.currency)}</td><td><StatusBadge status={record.payment_status} /></td><td>{new Date(record.created_at).toLocaleDateString()}</td><td><div className="registration-row-actions"><button className="registration-row-view" type="button" onClick={() => setSelected(record)} title="View registration" aria-label={`View ${record.registration_number}`} disabled={deletingId === record.id}><Eye size={16} /></button><button className="registration-row-delete" type="button" onClick={() => deleteRecord(record)} title="Delete registration" aria-label={`Delete ${record.registration_number}`} disabled={deletingId === record.id}>{deletingId === record.id ? <Loader2 className="spin" size={16} /> : <Trash2 size={16} />}</button></div></td></tr>)}</tbody></table>{!visible.length && <div className="registration-admin-empty">No registrations match your search.</div>}</div>
     {selected && <RegistrationDrawer record={selected} onClose={() => setSelected(null)} onStatusChange={updateStatus} updating={updating} />}
   </div>;
 }

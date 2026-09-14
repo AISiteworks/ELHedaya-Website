@@ -52,6 +52,12 @@ export async function listRegistrationAdminRecords() {
   return data || [];
 }
 
+export async function deleteRegistrationRecord(id) {
+  requireBackend();
+  const { error } = await supabase.from("registrations").delete().eq("id", id);
+  if (error) throw error;
+}
+
 export async function listRegistrationFeesAdmin() {
   requireBackend();
   const { data, error } = await supabase

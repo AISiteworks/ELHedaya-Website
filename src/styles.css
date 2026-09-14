@@ -3177,6 +3177,7 @@ a:focus-visible {
 .registration-paid-summary span { font-size:.58rem; }
 .registration-paid-summary strong { font-size:.85rem; }
 .registration-paid-summary small { color:#6b8a7c; font-size:.56rem; }
+.registration-sandbox-note { margin-top:13px; padding:8px 12px; border:1px solid #ead8a6; border-radius:999px; background:#fff9e9; color:#80651d; font-size:.58rem; font-weight:700; }
 .registration-complete-actions { margin-top:22px; display:flex; gap:9px; flex-wrap:wrap; justify-content:center; }
 .registration-contact-help { margin-top:17px; color:#909994; font-size:.6rem; }
 .registration-contact-help a { color:var(--green-700); font-weight:800; }
@@ -3249,7 +3250,13 @@ a:focus-visible {
 .registration-table td > strong { color:var(--green-950); font-size:.65rem; }
 .registration-table td:nth-child(2) { display:grid; }
 .registration-table td:nth-child(2) small { color:#939b97; font-size:.55rem; }
-.registration-row-view { width:31px; height:31px; border:1px solid #dce3df; border-radius:8px; display:grid; place-items:center; color:var(--green-700); background:white; }
+.registration-row-actions { display:flex; align-items:center; justify-content:flex-end; gap:7px; }
+.registration-row-view, .registration-row-delete { width:31px; height:31px; border-radius:8px; display:grid; place-items:center; background:white; transition:background .16s ease, border-color .16s ease, transform .16s ease; }
+.registration-row-view { border:1px solid #dce3df; color:var(--green-700); }
+.registration-row-view:hover:not(:disabled) { background:#f1f8f4; border-color:#c7dbd0; transform:translateY(-1px); }
+.registration-row-delete { border:1px solid #f0d3d3; color:#ba3e3e; background:#fffafa; }
+.registration-row-delete:hover:not(:disabled) { background:#fff0f0; border-color:#e8bcbc; transform:translateY(-1px); }
+.registration-row-view:disabled, .registration-row-delete:disabled { opacity:.55; cursor:wait; }
 .registration-admin-empty { min-height:82px; padding:20px; display:flex; align-items:center; justify-content:center; color:#969e9a; font-size:.67rem; }
 
 .registration-drawer-backdrop { position:fixed; inset:0; z-index:900; display:flex; justify-content:flex-end; background:rgba(3,43,35,.28); backdrop-filter:blur(3px); }
