@@ -31,12 +31,12 @@ export default function ScheduleFees() {
             <div className="schedule-icon"><Clock3 size={23} /></div>
             <span className="card-label">Sunday Schedule</span>
             <div className="time-row">
-              <strong>9:00–9:30 AM</strong>
-              <span>Quran Tajweed & Recitation</span>
+              <strong>10:30 AM</strong>
+              <span>Sunday School begins</span>
             </div>
             <div className="time-row">
-              <strong>10:25 AM</strong>
-              <span>Regular School begins</span>
+              <strong>2:30 PM</strong>
+              <span>Dismissal · Please pick up on time</span>
             </div>
           </div>
 
@@ -57,9 +57,9 @@ export default function ScheduleFees() {
           <div className="schedule-column">
             <div className="schedule-icon"><MapPinned size={23} /></div>
             <span className="card-label">Arrival</span>
-            <strong className="arrival-title">First driveway behind the Masjid</strong>
-            <p>Use the designated Sunday School drop-off and pickup route.</p>
-            <div className="schedule-note"><BookOpen size={17} /> Please arrive on time and ready to learn.</div>
+            <strong className="arrival-title">Main Parking Lot</strong>
+            <p>Pickup and drop-off take place in the Main Parking Lot.</p>
+            <div className="schedule-note"><BookOpen size={17} /> School hours are 10:30 AM–2:30 PM.</div>
           </div>
         </div>
       </div>

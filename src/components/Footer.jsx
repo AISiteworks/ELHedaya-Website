@@ -1,5 +1,4 @@
 import Logo from "./Logo";
-import { PORTAL_URL } from "../data/content";
 
 export default function Footer() {
   return (
@@ -22,7 +21,7 @@ export default function Footer() {
         <div className="footer-links">
           <span>Families</span>
           <a href="/register">Register Online</a>
-          <a href={PORTAL_URL}>Parent Portal</a>
+          <a href="/volunteer">Volunteer</a>
           <a href="/#newsletter">Newsletter</a>
           <a href="/#contact">Contact</a>
         </div>

@@ -3,7 +3,8 @@
     { "source": "/gallery", "destination": "/" },
     { "source": "/school-gallery-admin", "destination": "/" },
     { "source": "/newsletter/unsubscribe", "destination": "/" },
-    { "source": "/register", "destination": "/" }
+    { "source": "/register", "destination": "/" },
+    { "source": "/volunteer", "destination": "/" }
   ],
   "headers": [
     {

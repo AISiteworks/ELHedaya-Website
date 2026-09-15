@@ -7,7 +7,9 @@ import Gallery from "./components/Gallery";
 import GalleryAdminPage from "./components/GalleryAdminPage";
 import ScheduleFees from "./components/ScheduleFees";
 import Policies from "./components/Policies";
-import PortalCTA from "./components/PortalCTA";
+import FamilyNotes from "./components/FamilyNotes";
+import VolunteerCTA from "./components/VolunteerCTA";
+import VolunteerPage from "./components/VolunteerPage";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import NewsletterSignup from "./components/NewsletterSignup";
@@ -18,6 +20,7 @@ const ADMIN_PATH = "/school-gallery-admin";
 const GALLERY_PATH = "/gallery";
 const NEWSLETTER_UNSUBSCRIBE_PATH = "/newsletter/unsubscribe";
 const REGISTRATION_PATH = "/register";
+const VOLUNTEER_PATH = "/volunteer";
 
 function normalizedPath() {
   return window.location.pathname.replace(/\/$/, "") || "/";
@@ -36,6 +39,16 @@ export default function App() {
 
   if (path === REGISTRATION_PATH) {
     return <RegistrationPage />;
+  }
+
+  if (path === VOLUNTEER_PATH) {
+    return (
+      <>
+        <Header />
+        <main><VolunteerPage /></main>
+        <Footer />
+      </>
+    );
   }
 
   if (path === GALLERY_PATH) {
@@ -59,8 +72,9 @@ export default function App() {
         <Programs />
         <GalleryPreview />
         <ScheduleFees />
+        <FamilyNotes />
         <Policies />
-        <PortalCTA />
+        <VolunteerCTA />
         <NewsletterSignup />
         <Contact />
       </main>

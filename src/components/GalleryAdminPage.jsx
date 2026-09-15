@@ -19,10 +19,12 @@ import {
   X,
   Mail,
   ClipboardList,
+  HeartHandshake,
 } from "lucide-react";
 import Logo from "./Logo";
 import NewsletterAdmin from "./NewsletterAdmin";
 import RegistrationAdmin from "./RegistrationAdmin";
+import VolunteerAdmin from "./VolunteerAdmin";
 import {
   addGalleryUrl,
   deleteGalleryImage,
@@ -170,10 +172,12 @@ function AdminWorkspace(props) {
         <button type="button" className={section === "gallery" ? "active" : ""} onClick={() => setSection("gallery")}><Images size={17} /> Picture Gallery</button>
         <button type="button" className={section === "newsletter" ? "active" : ""} onClick={() => setSection("newsletter")}><Mail size={17} /> Newsletter</button>
         <button type="button" className={section === "registration" ? "active" : ""} onClick={() => setSection("registration")}><ClipboardList size={17} /> Registration</button>
+        <button type="button" className={section === "volunteers" ? "active" : ""} onClick={() => setSection("volunteers")}><HeartHandshake size={17} /> Volunteers</button>
       </div>
       {section === "gallery" && <GalleryWorkspace {...props} />}
       {section === "newsletter" && <NewsletterAdmin session={props.session} localPreview={props.localPreview} onLogout={props.onLogout} />}
       {section === "registration" && <RegistrationAdmin session={props.session} localPreview={props.localPreview} />}
+      {section === "volunteers" && <VolunteerAdmin />}
     </>
   );
 }

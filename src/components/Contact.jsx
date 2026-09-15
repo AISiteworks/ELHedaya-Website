@@ -29,8 +29,8 @@ export default function Contact() {
             <a href={`mailto:${school.email}`}>{school.email}</a>
           </ContactRow>
           <div className="dropoff-strip">
-            <span>Sunday drop-off</span>
-            <strong>First driveway behind the Masjid</strong>
+            <span>Sunday pickup & drop-off</span>
+            <strong>Main Parking Lot · Please pick up on time</strong>
           </div>
         </div>
       </div>

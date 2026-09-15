@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import Logo from "./Logo";
-import { PORTAL_URL } from "../data/content";
 
 const nav = [
   { href: "/#about", label: "About" },
@@ -9,6 +8,7 @@ const nav = [
   { href: "/gallery", label: "Gallery" },
   { href: "/#schedule", label: "Schedule & Fees" },
   { href: "/#policies", label: "Policies" },
+  { href: "/volunteer", label: "Volunteer" },
   { href: "/#contact", label: "Contact" },
   { href: "/register", label: "Register" },
 ];
@@ -40,9 +40,6 @@ export default function Header() {
           {nav.map((item) => (
             <a key={item.href} href={item.href} onClick={() => setOpen(false)}>{item.label}</a>
           ))}
-          <a className="portal-nav" href={PORTAL_URL}>
-            Parent Portal <ArrowUpRight size={16} />
-          </a>
         </nav>
 
         <button

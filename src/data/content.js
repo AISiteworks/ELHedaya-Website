@@ -1,5 +1,3 @@
-export const PORTAL_URL = import.meta.env.VITE_PORTAL_URL?.trim() || "https://elhedaya.clemmonsislamiccenter.org/";
-
 export const school = {
   name: "EL Hedaya Islamic School",
   organization: "Clemmons Islamic Center",
@@ -47,9 +45,9 @@ export const policies = [
   {
     id: "attendance",
     title: "Attendance & Punctuality",
-    short: "Regular school begins promptly at 10:25 AM.",
+    short: "School runs from 10:30 AM to 2:30 PM.",
     details: [
-      "Students should arrive by 10:25 AM and be ready for class.",
+      "Students should arrive by 10:30 AM and be ready for class.",
       "Three late arrivals constitute one absence.",
       "Three unexcused absences may result in removal from the school roster.",
     ],
@@ -59,9 +57,10 @@ export const policies = [
     title: "Safety & Snacks",
     short: "Simple guidelines help keep the school day safe.",
     details: [
-      "Healthy snacks are allowed.",
-      "Please do not bring food that requires heating.",
-      "Drop-off and pickup use the first driveway behind the Masjid.",
+      "Healthy snacks will be available for purchase, or students may bring their own snack.",
+      "Snacks should be quick and easy to consume.",
+      "Pickup and drop-off take place in the Main Parking Lot.",
+      "Please pick up your child on time.",
     ],
   },
 ];

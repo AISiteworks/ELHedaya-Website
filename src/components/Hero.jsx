@@ -1,5 +1,5 @@
-import { ArrowRight, CalendarDays, GraduationCap, ShieldCheck } from "lucide-react";
-import { PORTAL_URL, school } from "../data/content";
+import { ArrowRight, CalendarDays, GraduationCap, HeartHandshake } from "lucide-react";
+import { school } from "../data/content";
 
 export default function Hero() {
   return (
@@ -39,7 +39,7 @@ export default function Hero() {
           <div className="hero-badges">
             <span><CalendarDays size={17} /> Every Sunday</span>
             <span><GraduationCap size={17} /> Quran & Islamic Studies</span>
-            <span><ShieldCheck size={17} /> Parent-focused portal</span>
+            <span><HeartHandshake size={17} /> Parent involvement welcome</span>
           </div>
         </div>
 
@@ -59,27 +59,27 @@ export default function Hero() {
 
             <div className="mini-schedule">
               <div>
-                <span>09:00</span>
+                <span>10:30</span>
                 <div>
-                  <strong>Quran Class</strong>
-                  <small>Tajweed & Recitation</small>
+                  <strong>School Begins</strong>
+                  <small>Sunday learning starts</small>
                 </div>
               </div>
               <div>
-                <span>10:25</span>
+                <span>2:30</span>
                 <div>
-                  <strong>Regular School</strong>
-                  <small>Islamic learning begins</small>
+                  <strong>Dismissal</strong>
+                  <small>Please pick up on time</small>
                 </div>
               </div>
             </div>
 
             <div className="portal-mini-card">
               <div>
-                <small>Already registered?</small>
-                <strong>Access your family account</strong>
+                <small>Help our school thrive</small>
+                <strong>Volunteer with EL Hedaya</strong>
               </div>
-              <a href={PORTAL_URL} aria-label="Open parent portal">↗</a>
+              <a href="/volunteer" aria-label="Volunteer with EL Hedaya">↗</a>
             </div>
           </div>
         </div>
